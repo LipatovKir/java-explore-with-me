@@ -12,7 +12,6 @@ services:
       - stats-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats-server-db
-#      - TZ=Europe/Moscow
 
   stats-db:
     image: postgres:14.3-alpine
