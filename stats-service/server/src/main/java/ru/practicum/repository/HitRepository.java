@@ -35,7 +35,6 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "AND h.uri IN :uris " +
             "GROUP BY h.app, h.uri " +
             "ORDER BY COUNT(DISTINCT h.ip) DESC")
-
     List<StatsDto> findStatsByUrisByUniqIp(@Param("start") LocalDateTime start,
                                            @Param("end") LocalDateTime end,
                                            @Param("uris") List<String> uris);
@@ -46,9 +45,7 @@ public interface HitRepository extends JpaRepository<Hit, Long> {
             "AND h.uri IN :uris " +
             "GROUP BY h.app, h.uri " +
             "ORDER BY COUNT(h.ip) DESC")
-
     List<StatsDto> findStatsByUris(@Param("start") LocalDateTime start,
                                    @Param("end") LocalDateTime end,
                                    @Param("uris") List<String> uris);
 }
-

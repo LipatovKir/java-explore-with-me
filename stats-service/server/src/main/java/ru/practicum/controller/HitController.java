@@ -29,9 +29,9 @@ public class HitController {
 
     @GetMapping("/stats")
     public List<StatsDto> getStats(@RequestParam("start") String start,
-                                    @RequestParam("end") String end,
-                                    @RequestParam(required = false) List<String> uris,
-                                    @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+                                   @RequestParam("end") String end,
+                                   @RequestParam(required = false) List<String> uris,
+                                   @RequestParam(required = false, defaultValue = "false") Boolean unique) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startTime = LocalDateTime.parse(start, formatter);
         LocalDateTime endTime = LocalDateTime.parse(end, formatter);
