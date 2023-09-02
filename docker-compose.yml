@@ -9,7 +9,7 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - stats-db
+      - stat-db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stat-db:5432/stat-server-db
       - TZ=Europe/Moscow
@@ -34,7 +34,7 @@ services:
     depends_on:
       - ewm-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stat-db:5432/ewm-server-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5433/ewm-server-db
       - TZ=Europe/Moscow
 
   ewm-db:
