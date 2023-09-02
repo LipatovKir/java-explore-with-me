@@ -10,7 +10,7 @@
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>stats_server</artifactId>
+    <artifactId>stat_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>
