@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
-
-    <artifactId>stat_server</artifactId>
+    <groupId>ru.practicum</groupId>
+    <artifactId>stats_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>

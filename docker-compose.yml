@@ -34,7 +34,7 @@ services:
     depends_on:
       - ewm-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stat-db:5432/ewm-server-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/ewm-server-db
       - TZ=Europe/Moscow
 
   ewm-db:
