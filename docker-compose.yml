@@ -11,16 +11,16 @@ services:
     depends_on:
       - stats-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats-server-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stat-db:5432/stat-server-db
       - TZ=Europe/Moscow
 
-  stats-db:
+  stat-db:
     image: postgres:14.3-alpine
-    container_name: stats-db
+    container_name: stat-db
     ports:
       - "6541:5432"
     environment:
-      - POSTGRES_DB=stats-server-db
+      - POSTGRES_DB=stat-server-db
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
       - TZ=Europe/Moscow
@@ -34,7 +34,7 @@ services:
     depends_on:
       - ewm-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/ewm-server-db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stat-db:5432/ewm-server-db
       - TZ=Europe/Moscow
 
   ewm-db:
