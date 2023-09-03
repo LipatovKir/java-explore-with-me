@@ -21,7 +21,6 @@ public class Hit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
     Long id;
     @Column(name = "app", nullable = false, length = 250)
     String app;

@@ -8,6 +8,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 
@@ -28,20 +30,26 @@ public class StatsClient extends BaseClient {
         return post(hitDto);
     }
 
-    public ResponseEntity<Object> getStat(String start, String end, String[] uris, boolean unique) {
+    public ResponseEntity<Object> getStat(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        String joinedUris = String.join(",", uris);
+
         Map<String, Object> parameters = Map.of(
-                "start", start,
-                "end", end,
-                "uris", uris,
+                "start", start.format(formatter),
+                "end", end.format(formatter),
+                "uris", joinedUris,
                 "unique", unique
         );
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
 
-    public ResponseEntity<Object> findStats(String start, String end, boolean unique) {
+    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime end, boolean unique) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         Map<String, Object> parameters = Map.of(
-                "start", start,
-                "end", end,
+                "start", start.format(formatter),
+                "end", end.format(formatter),
                 "unique", unique
         );
         return get("/stats?start={start}&end={end}&unique={unique}", parameters);

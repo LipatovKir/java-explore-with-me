@@ -11,6 +11,8 @@ import ru.practicum.repository.HitRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.practicum.service.HitMapper.makeHitInDto;
+
 @Service
 @Slf4j
 @Transactional(readOnly = true)
@@ -22,13 +24,13 @@ public class HitServiceImpl implements HitService {
     @Transactional
     @Override
     public void createHit(HitDto hitDto) {
-        hitRepository.save(HitMapper.makeHitInDto(hitDto));
+        hitRepository.save(makeHitInDto(hitDto));
     }
 
     @Override
     public List<StatsDto> findStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
 
-        if (uris == null || uris.isEmpty()) {
+        if (uris.isEmpty()) {
             if (Boolean.TRUE.equals(unique)) {
                 log.info("Получение статистики по ip: ");
                 return hitRepository.findAllStatsByUniqIp(start, end);
@@ -38,10 +40,10 @@ public class HitServiceImpl implements HitService {
             }
         } else {
             if (Boolean.TRUE.equals(unique)) {
-                log.info("Получение статсики по uri и ip: ");
+                log.info("Получение статистики по uri и ip: ");
                 return hitRepository.findStatsByUrisByUniqIp(start, end, uris);
             } else {
-                log.info("Получение статсики по uri: ");
+                log.info("Получение статистики по uri: ");
                 return hitRepository.findStatsByUris(start, end, uris);
             }
         }
