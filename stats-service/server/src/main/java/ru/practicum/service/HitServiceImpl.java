@@ -30,7 +30,7 @@ public class HitServiceImpl implements HitService {
     @Override
     public List<StatsDto> findStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
 
-        if (uris.isEmpty()) {
+        if (uris == null || uris.isEmpty()) {
             if (Boolean.TRUE.equals(unique)) {
                 log.info("Получение статистики по ip: ");
                 return hitRepository.findAllStatsByUniqIp(start, end);
