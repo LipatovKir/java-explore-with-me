@@ -11,7 +11,6 @@ import ru.practicum.repository.HitRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.practicum.service.HitMapper.makeHitInDto;
 
 @Service
 @Slf4j
@@ -24,7 +23,8 @@ public class HitServiceImpl implements HitService {
     @Transactional
     @Override
     public void createHit(HitDto hitDto) {
-        hitRepository.save(makeHitInDto(hitDto));
+
+        hitRepository.save(HitMapper.makeHitInDto(hitDto));
     }
 
     @Override
