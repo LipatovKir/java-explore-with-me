@@ -23,12 +23,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UnionServiceImpl implements UnionService {
 
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
     private final CompilationRepository compilationRepository;
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Override
     public User getUserOrNotFound(Long userId) {
 

@@ -17,9 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final UserRepository userRepository;
     private final UnionService unionService;
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
     @Transactional
     @Override
     public UserDto addUser(UserDto userDto) {
