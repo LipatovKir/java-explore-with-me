@@ -26,16 +26,17 @@ public class BaseClient {
         return responseBuilder.build();
     }
 
-    protected <T> ResponseEntity<Object> post(T body) {
-        return makeRequest(HttpMethod.POST, "/hit", null, body);
+    protected <T> ResponseEntity<Object> post(String path, T body) {
+        return makeAndSendRequest(HttpMethod.POST, path, null, body);
     }
 
     protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeRequest(HttpMethod.GET, path, parameters, null);
+        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
     }
 
-    private <T> ResponseEntity<Object> makeRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
+
         ResponseEntity<Object> statsServiceResponse;
         try {
             if (parameters != null) {

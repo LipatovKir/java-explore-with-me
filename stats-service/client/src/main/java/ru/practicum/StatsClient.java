@@ -17,17 +17,13 @@ import java.util.Map;
 public class StatsClient extends BaseClient {
 
     @Autowired
-    public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
+    public StatsClient(@Value("http://localhost:9090") String serverUrl, RestTemplateBuilder builder) {
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
                         .requestFactory(HttpComponentsClientHttpRequestFactory::new)
                         .build()
         );
-    }
-
-    public ResponseEntity<Object> addHit(HitDto hitDto) {
-        return post(hitDto);
     }
 
     public ResponseEntity<Object> getStat(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
@@ -44,14 +40,21 @@ public class StatsClient extends BaseClient {
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
 
-    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime end, boolean unique) {
+    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime end, String uris, boolean unique) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         Map<String, Object> parameters = Map.of(
                 "start", start.format(formatter),
                 "end", end.format(formatter),
+                "uris", uris,
                 "unique", unique
         );
-        return get("/stats?start={start}&end={end}&unique={unique}", parameters);
+        return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
+
+    public ResponseEntity<Object> addHit(HitDto hitDto) {
+        return post("/hit", hitDto);
+    }
+
+
 }
