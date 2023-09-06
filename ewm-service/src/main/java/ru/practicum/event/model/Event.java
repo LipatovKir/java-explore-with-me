@@ -3,7 +3,7 @@ package ru.practicum.event.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.category.Category;
+import ru.practicum.categories.Category;
 import ru.practicum.user.User;
 import ru.practicum.util.enums.State;
 

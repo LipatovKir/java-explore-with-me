@@ -2,10 +2,10 @@ package ru.practicum.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.category.Category;
-import ru.practicum.category.CategoryRepository;
-import ru.practicum.compilation.Compilation;
-import ru.practicum.compilation.CompilationRepository;
+import ru.practicum.categories.Category;
+import ru.practicum.categories.CategoryRepository;
+import ru.practicum.compilations.Compilation;
+import ru.practicum.compilations.CompilationRepository;
 import ru.practicum.event.EventRepository;
 import ru.practicum.event.model.Event;
 import ru.practicum.exception.NotFoundException;

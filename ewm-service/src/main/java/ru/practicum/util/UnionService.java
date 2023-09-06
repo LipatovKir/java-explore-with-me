@@ -1,7 +1,7 @@
 package ru.practicum.util;
 
-import ru.practicum.category.Category;
-import ru.practicum.compilation.Compilation;
+import ru.practicum.categories.Category;
+import ru.practicum.compilations.Compilation;
 import ru.practicum.event.model.Event;
 import ru.practicum.request.Request;
 import ru.practicum.user.User;

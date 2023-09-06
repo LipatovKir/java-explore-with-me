@@ -1,4 +1,4 @@
-package ru.practicum.compilation;
+package ru.practicum.compilations;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.HitDto;
 import ru.practicum.StatsClient;
 import ru.practicum.StatsDto;
-import ru.practicum.category.Category;
+import ru.practicum.categories.Category;
 import ru.practicum.event.dto.*;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
@@ -51,7 +51,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public EventFullDto addEvent(Long userId, EventNewDto eventNewDto) {
+    public EventFullDto addEvent(Long userId, NewEventDto eventNewDto) {
 
         User user = unionService.getUserOrNotFound(userId);
         Category category = unionService.getCategoryOrNotFound(eventNewDto.getCategory());

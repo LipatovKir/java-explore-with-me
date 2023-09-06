@@ -24,7 +24,7 @@ public class EventPrivateController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EventFullDto addEvent(@Valid @RequestBody EventNewDto eventNewDto,
+    public EventFullDto addEvent(@Valid @RequestBody NewEventDto eventNewDto,
                                  @PathVariable Long userId) {
 
         log.info("User id {}, add Event {} ", userId, eventNewDto.getAnnotation());

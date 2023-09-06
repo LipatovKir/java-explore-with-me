@@ -1,7 +1,7 @@
-package ru.practicum.category;
+package ru.practicum.categories;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.category.dto.CategoryDto;
+import ru.practicum.categories.dto.CategoryDto;
 
 import java.util.ArrayList;
 import java.util.List;

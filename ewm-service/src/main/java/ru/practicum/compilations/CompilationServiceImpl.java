@@ -1,13 +1,13 @@
-package ru.practicum.compilation;
+package ru.practicum.compilations;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.compilation.dto.CompilationDto;
-import ru.practicum.compilation.dto.CompilationNewDto;
-import ru.practicum.compilation.dto.CompilationUpdateDto;
+import ru.practicum.compilations.dto.CompilationDto;
+import ru.practicum.compilations.dto.CompilationNewDto;
+import ru.practicum.compilations.dto.CompilationUpdateDto;
 import ru.practicum.event.EventRepository;
 import ru.practicum.util.UnionService;
 

@@ -1,10 +1,10 @@
 package ru.practicum.event;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.category.Category;
-import ru.practicum.category.CategoryMapper;
+import ru.practicum.categories.Category;
+import ru.practicum.categories.CategoryMapper;
 import ru.practicum.event.dto.EventFullDto;
-import ru.practicum.event.dto.EventNewDto;
+import ru.practicum.event.dto.NewEventDto;
 import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
@@ -20,7 +20,7 @@ import static ru.practicum.util.enums.State.PENDING;
 @UtilityClass
 public class EventMapper {
 
-    public Event returnEvent(EventNewDto eventNewDto, Category category, Location location, User user) {
+    public Event returnEvent(NewEventDto eventNewDto, Category category, Location location, User user) {
         Event event = Event.builder()
                 .annotation(eventNewDto.getAnnotation())
                 .category(category)

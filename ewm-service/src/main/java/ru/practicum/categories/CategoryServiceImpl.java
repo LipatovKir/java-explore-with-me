@@ -1,10 +1,10 @@
-package ru.practicum.category;
+package ru.practicum.categories;
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.category.dto.CategoryDto;
+import ru.practicum.categories.dto.CategoryDto;
 import ru.practicum.event.EventRepository;
 import ru.practicum.exception.ConflictException;
 import ru.practicum.util.UnionService;
