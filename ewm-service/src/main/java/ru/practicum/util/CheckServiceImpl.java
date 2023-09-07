@@ -2,10 +2,10 @@ package ru.practicum.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.practicum.categories.Category;
-import ru.practicum.categories.CategoryRepository;
-import ru.practicum.compilations.Compilation;
-import ru.practicum.compilations.CompilationRepository;
+import ru.practicum.categories.model.Category;
+import ru.practicum.categories.repository.CategoryRepository;
+import ru.practicum.compilation.model.Compilation;
+import ru.practicum.compilation.repository.CompilationRepository;
 import ru.practicum.event.EventRepository;
 import ru.practicum.event.model.Event;
 import ru.practicum.exception.NotFoundException;
@@ -15,15 +15,15 @@ import ru.practicum.user.User;
 import ru.practicum.user.UserRepository;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
+
+import static ru.practicum.constants.Constants.FORMATTER;
 
 
 @Service
 @RequiredArgsConstructor
-public class UnionServiceImpl implements UnionService {
+public class CheckServiceImpl implements CheckService {
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final EventRepository eventRepository;
@@ -31,60 +31,50 @@ public class UnionServiceImpl implements UnionService {
     private final CompilationRepository compilationRepository;
 
     @Override
-    public User getUserOrNotFound(Long userId) {
-
+    public User checkUser(Long userId) {
         Optional<User> user = userRepository.findById(userId);
-
         if (user.isEmpty()) {
-            throw new NotFoundException(User.class, "User id " + userId + " not found.");
+            throw new NotFoundException(User.class, "Пользователь " + userId + " не найден! ");
         } else {
             return user.get();
         }
     }
 
     @Override
-    public Category getCategoryOrNotFound(Long categoryId) {
-
+    public Category checkCategory(Long categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
-
         if (category.isEmpty()) {
-            throw new NotFoundException(Category.class, "Category id " + categoryId + " not found.");
+            throw new NotFoundException(Category.class, "Категория " + categoryId + " не найдена!");
         } else {
             return category.get();
         }
     }
 
     @Override
-    public Event getEventOrNotFound(Long eventId) {
-
+    public Event checkEvent(Long eventId) {
         Optional<Event> event = eventRepository.findById(eventId);
-
         if (event.isEmpty()) {
-            throw new NotFoundException(Event.class, "Event id " + eventId + " not found.");
+            throw new NotFoundException(Event.class, "Событие  " + eventId + " не найдено!");
         } else {
             return event.get();
         }
     }
 
     @Override
-    public Request getRequestOrNotFound(Long requestId) {
-
+    public Request checkRequest(Long requestId) {
         Optional<Request> request = requestRepository.findById(requestId);
-
         if (request.isEmpty()) {
-            throw new NotFoundException(Request.class, "Request id " + requestId + " not found.");
+            throw new NotFoundException(Request.class, "Запрос " + requestId + " не обнаружен! ");
         } else {
             return request.get();
         }
     }
 
     @Override
-    public Compilation getCompilationOrNotFound(Long compId) {
-
+    public Compilation checkCompilation(Long compId) {
         Optional<Compilation> compilation = compilationRepository.findById(compId);
-
         if (compilation.isEmpty()) {
-            throw new NotFoundException(Compilation.class, "Compilation id " + compId + " not found.");
+            throw new NotFoundException(Compilation.class, "Подборка событий " + compId + " не найдена!");
         } else {
             return compilation.get();
         }

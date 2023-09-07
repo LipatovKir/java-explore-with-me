@@ -3,7 +3,7 @@ package ru.practicum.event.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.categories.Category;
+import ru.practicum.categories.model.Category;
 import ru.practicum.user.User;
 import ru.practicum.util.enums.State;
 
@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 
 @Data
@@ -22,16 +23,14 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Event {
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     Long id;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "initiator_id", nullable = false)
     User initiator;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     Category category;

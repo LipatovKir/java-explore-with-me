@@ -1,5 +1,6 @@
 package ru.practicum.event.dto;
 
+import lombok.AccessLevel;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.practicum.request.dto.RequestDto;

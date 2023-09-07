@@ -14,8 +14,7 @@ import javax.validation.constraints.Size;
 public class CategoryDto {
 
     Long id;
-
-    @Size(max = 50, message = "name must be less than 50")
-    @NotBlank(message = "name cannot be empty and consist only of spaces.")
+    @Size(max = 50)
+    @NotBlank
     String name;
 }

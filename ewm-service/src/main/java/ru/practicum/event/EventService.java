@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EventService {
 
-    EventFullDto addEvent(Long userId, NewEventDto eventnewDto);
+    EventFullDto addEvent(Long userId, EventNewDto eventnewDto);
 
     List<EventShortDto> getAllEventsByUserId(Long userId, Integer from, Integer size);
 

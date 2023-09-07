@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.categories.CategoryService;
+import ru.practicum.categories.service.CategoryService;
 import ru.practicum.categories.dto.CategoryDto;
 
 import javax.validation.Valid;
@@ -19,26 +19,25 @@ public class CategoryAdminController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public CategoryDto addCategory(@Valid @RequestBody CategoryDto categoryDto) {
-
-        log.info("Add Category {} ", categoryDto.getName());
+    public CategoryDto addCategory(@Valid
+                                   @RequestBody CategoryDto categoryDto) {
+        log.info("Добавлена категория {} ", categoryDto.getName());
         return categoryService.addCategory(categoryDto);
     }
 
     @PatchMapping("/{catId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CategoryDto updateCategory(@Valid @RequestBody CategoryDto categoryDto,
+    public CategoryDto updateCategory(@Valid
+                                      @RequestBody CategoryDto categoryDto,
                                       @PathVariable("catId") Long categoryId) {
-
-        log.info("Update Category {} ", categoryDto.getName());
+        log.info("Обновлена категория {} ", categoryDto.getName());
         return categoryService.updateCategory(categoryDto, categoryId);
     }
 
     @DeleteMapping("/{catId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteCategory(@PathVariable("catId") Long categoryId) {
-
-        log.info("Delete Category {} ", categoryId);
+        log.info("Удалена категория {} ", categoryId);
         categoryService.deleteCategory(categoryId);
     }
 }

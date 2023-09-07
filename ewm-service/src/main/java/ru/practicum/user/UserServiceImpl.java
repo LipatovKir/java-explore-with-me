@@ -1,14 +1,13 @@
 package ru.practicum.user;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.user.dto.UserDto;
-import ru.practicum.util.UnionService;
+import ru.practicum.util.CheckService;
 
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -17,9 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final UserRepository userRepository;
-    private final UnionService unionService;
+    private final CheckService unionService;
 
     @Transactional
     @Override
@@ -47,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(long userId) {
 
-        unionService.getUserOrNotFound(userId);
+        unionService.checkUser(userId);
         userRepository.deleteById(userId);
     }
 }

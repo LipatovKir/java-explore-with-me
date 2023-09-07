@@ -5,15 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.event.EventRepository;
-import ru.practicum.event.model.Event;
 import ru.practicum.exception.ConflictException;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.user.User;
-import ru.practicum.util.UnionService;
+import ru.practicum.event.model.Event;
 import ru.practicum.util.enums.State;
 import ru.practicum.util.enums.Status;
-
 import java.time.LocalDateTime;
+import ru.practicum.util.CheckService;
 import java.util.List;
 
 @Slf4j
@@ -24,14 +23,14 @@ public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
     private final EventRepository eventRepository;
-    private final UnionService unionService;
+    private final CheckService unionService;
 
     @Override
     @Transactional
     public RequestDto addRequest(Long userId, Long eventId) {
 
-        User user = unionService.getUserOrNotFound(userId);
-        Event event = unionService.getEventOrNotFound(eventId);
+        User user = unionService.checkUser(userId);
+        Event event = unionService.checkEvent(eventId);
 
         if (event.getParticipantLimit() <= event.getConfirmedRequests() && event.getParticipantLimit() != 0) {
             throw new ConflictException(String.format("Event %s requests exceed the limit", event));
@@ -74,7 +73,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<RequestDto> getRequestsByUserId(Long userId) {
 
-        unionService.getUserOrNotFound(userId);
+        unionService.checkUser(userId);
         List<Request> requestList = requestRepository.findByRequesterId(userId);
 
         return RequestMapper.returnRequestDtoList(requestList);
@@ -84,8 +83,8 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public RequestDto cancelRequest(Long userId, Long requestId) {
 
-        unionService.getUserOrNotFound(userId);
-        Request request = unionService.getRequestOrNotFound(requestId);
+        unionService.checkUser(userId);
+        Request request = unionService.checkRequest(requestId);
         request.setStatus(Status.CANCELED);
 
         return RequestMapper.returnRequestDto(requestRepository.save(request));

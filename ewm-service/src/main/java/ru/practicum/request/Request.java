@@ -10,7 +10,7 @@ import ru.practicum.util.enums.Status;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-import static ru.practicum.event.dto.EventFullDto.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @Data
 @Builder

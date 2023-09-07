@@ -7,11 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.dto.HitDto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @Service
 public class StatsClient extends BaseClient {
@@ -26,35 +28,18 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> getStat(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        String joinedUris = String.join(",", uris);
-
-        Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter),
-                "uris", joinedUris,
-                "unique", unique
-        );
-        return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
+    public void addHit(HitDto hitDto) {
+        post("/hit", hitDto);
     }
 
-    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime end, String uris, boolean unique) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, String uris, boolean unique) {
 
         Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter),
+                "start", start.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
+                "end", end.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
                 "uris", uris,
                 "unique", unique
         );
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
-
-    public ResponseEntity<Object> addHit(HitDto hitDto) {
-        return post("/hit", hitDto);
-    }
-
-
 }

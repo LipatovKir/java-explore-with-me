@@ -8,10 +8,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.HitDto;
 import ru.practicum.StatsClient;
-import ru.practicum.StatsDto;
-import ru.practicum.categories.Category;
+import ru.practicum.categories.model.Category;
+import ru.practicum.dto.HitDto;
+import ru.practicum.dto.StatsDto;
 import ru.practicum.event.dto.*;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
@@ -23,16 +23,15 @@ import ru.practicum.request.RequestMapper;
 import ru.practicum.request.RequestRepository;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.user.User;
-import ru.practicum.util.UnionService;
 import ru.practicum.util.enums.State;
 import ru.practicum.util.enums.StateAction;
+import ru.practicum.util.CheckService;
 import ru.practicum.util.enums.Status;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
+import static ru.practicum.constants.Constants.START_HISTORY;
 import static ru.practicum.util.enums.State.PUBLISHED;
 
 @Slf4j
@@ -40,8 +39,8 @@ import static ru.practicum.util.enums.State.PUBLISHED;
 @Transactional(readOnly = true)
 @AllArgsConstructor
 public class EventServiceImpl implements EventService {
-    public static final LocalDateTime START_HISTORY = LocalDateTime.of(1970, 1, 1, 0, 0);
-    private final UnionService unionService;
+
+    private final CheckService unionService;
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
     private final LocationRepository locationRepository;
@@ -51,10 +50,10 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public EventFullDto addEvent(Long userId, NewEventDto eventNewDto) {
+    public EventFullDto addEvent(Long userId, EventNewDto eventNewDto) {
 
-        User user = unionService.getUserOrNotFound(userId);
-        Category category = unionService.getCategoryOrNotFound(eventNewDto.getCategory());
+        User user = unionService.checkUser(userId);
+        Category category = unionService.checkCategory(eventNewDto.getCategory());
         Location location = locationRepository.save(LocationMapper.returnLocation(eventNewDto.getLocation()));
         Event event = EventMapper.returnEvent(eventNewDto, category, location, user);
         eventRepository.save(event);
@@ -65,7 +64,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventShortDto> getAllEventsByUserId(Long userId, Integer from, Integer size) {
 
-        unionService.getUserOrNotFound(userId);
+        unionService.checkUser(userId);
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findByInitiatorId(userId, pageRequest);
 
@@ -75,8 +74,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto getUserEventById(Long userId, Long eventId) {
 
-        unionService.getUserOrNotFound(userId);
-        unionService.getEventOrNotFound(eventId);
+        unionService.checkUser(userId);
+        unionService.checkEvent(eventId);
         Event event = eventRepository.findByInitiatorIdAndId(userId,eventId);
 
         return EventMapper.returnEventFullDto(event);
@@ -86,8 +85,8 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public EventFullDto updateEventByUserId(EventUpdateDto eventUpdateDto, Long userId, Long eventId) {
 
-        User user = unionService.getUserOrNotFound(userId);
-        Event event = unionService.getEventOrNotFound(eventId);
+        User user = unionService.checkUser(userId);
+        Event event = unionService.checkEvent(eventId);
 
         if (!user.getId().equals(event.getInitiator().getId())) {
             throw new ConflictException(String.format("User %s is not the initiator of the event %s.",userId, eventId));
@@ -104,8 +103,8 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<RequestDto> getRequestsForEventIdByUserId(Long userId, Long eventId) {
 
-        User user = unionService.getUserOrNotFound(userId);
-        Event event = unionService.getEventOrNotFound(eventId);
+        User user = unionService.checkUser(userId);
+        Event event = unionService.checkEvent(eventId);
 
         if (!user.getId().equals(event.getInitiator().getId())) {
             throw new ConflictException(String.format("User %s is not the initiator of the event %s.",userId, eventId));
@@ -120,8 +119,8 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public RequestUpdateDtoResult updateStatusRequestsForEventIdByUserId(RequestUpdateDtoRequest requestDto, Long userId, Long eventId) {
 
-        User user = unionService.getUserOrNotFound(userId);
-        Event event = unionService.getEventOrNotFound(eventId);
+        User user = unionService.checkUser(userId);
+        Event event = unionService.checkEvent(eventId);
 
         RequestUpdateDtoResult result = RequestUpdateDtoResult.builder()
                 .confirmedRequests(Collections.emptyList())
@@ -176,7 +175,7 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public EventFullDto updateEventByAdmin(EventUpdateDto eventUpdateDto, Long eventId) {
 
-        Event event = unionService.getEventOrNotFound(eventId);
+        Event event = unionService.checkEvent(eventId);
 
         if (eventUpdateDto.getStateAction() != null) {
             if (eventUpdateDto.getStateAction().equals(StateAction.PUBLISH_EVENT)) {
@@ -230,7 +229,7 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventFullDto getEventById(Long eventId, String uri, String ip) {
 
-        Event event = unionService.getEventOrNotFound(eventId);
+        Event event = unionService.checkEvent(eventId);
         if (!event.getState().equals(PUBLISHED)) {
            throw new NotFoundException(Event.class, String.format("Event %s not published", eventId));
         }
@@ -272,7 +271,7 @@ public class EventServiceImpl implements EventService {
             event.setAnnotation(eventUpdateDto.getAnnotation());
         }
         if (eventUpdateDto.getCategory() != null) {
-            event.setCategory(unionService.getCategoryOrNotFound(eventUpdateDto.getCategory()));
+            event.setCategory(unionService.checkCategory(eventUpdateDto.getCategory()));
         }
         if (eventUpdateDto.getDescription() != null && !eventUpdateDto.getDescription().isBlank()) {
             event.setDescription(eventUpdateDto.getDescription());
@@ -324,7 +323,7 @@ public class EventServiceImpl implements EventService {
     private Long getViewsEventById(Long eventId) {
 
         String uri = "/events/" + eventId;
-        ResponseEntity<Object> response = client.findStats(START_HISTORY, LocalDateTime.now(), uri, true);
+        ResponseEntity<Object> response = client.getStats(START_HISTORY, LocalDateTime.now(), uri, true);
         List<StatsDto> result = objectMapper.convertValue(response.getBody(), new TypeReference<>() {});
 
         if (result.isEmpty()) {

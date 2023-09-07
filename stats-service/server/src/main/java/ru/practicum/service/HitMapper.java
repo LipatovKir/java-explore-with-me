@@ -1,9 +1,8 @@
 package ru.practicum.service;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.HitDto;
+import ru.practicum.dto.HitDto;
 import ru.practicum.model.Hit;
-
 
 @UtilityClass
 public class HitMapper {

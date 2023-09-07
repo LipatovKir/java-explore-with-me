@@ -39,7 +39,7 @@ public class Hit {
         Class<?> oEffectiveClass = hibernateproxy != null ? hibernateproxy.getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = hibernateproxy != null ? hibernateproxy.getHibernateLazyInitializer().getPersistentClass() : getClass();
         if (!thisEffectiveClass.equals(oEffectiveClass)) return false;
-        Hit hit = (Hit) o;
+        ru.practicum.model.Hit hit = (ru.practicum.model.Hit) o;
         return getId() != null && Objects.equals(getId(), hit.getId());
     }
 

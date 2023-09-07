@@ -1,4 +1,4 @@
-package ru.practicum.compilations.dto;
+package ru.practicum.compilation.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -14,10 +14,7 @@ import java.util.Set;
 public class CompilationDto {
 
     Long id;
-
     Boolean pinned;
-
     String title;
-
     Set<EventShortDto> events;
 }

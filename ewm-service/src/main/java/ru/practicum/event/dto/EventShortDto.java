@@ -8,7 +8,7 @@ import ru.practicum.user.dto.UserShortDto;
 
 import java.time.LocalDateTime;
 
-
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @Data
 @Builder
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventShortDto {
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     String annotation;
 
     CategoryDto category;

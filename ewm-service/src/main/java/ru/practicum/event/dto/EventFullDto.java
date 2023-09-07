@@ -3,13 +3,14 @@ package ru.practicum.event.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.categories.dto.CategoryDto;
 import ru.practicum.user.dto.UserShortDto;
+
+import ru.practicum.categories.dto.CategoryDto;
 import ru.practicum.util.enums.State;
 
 import java.time.LocalDateTime;
 
-
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventFullDto {
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     String annotation;
 
     CategoryDto category;

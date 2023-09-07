@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.user.dto.UserDto;
-
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
+
+import ru.practicum.user.dto.UserDto;
 
 @Slf4j
 @RestController
@@ -21,8 +21,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public UserDto addUser(@Valid
-                               @RequestBody UserDto userDto) {
+    public UserDto addUser(@Valid @RequestBody UserDto userDto) {
 
         log.info("Add User {} ", userDto.getName());
         return userService.addUser(userDto);

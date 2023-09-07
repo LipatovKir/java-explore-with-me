@@ -9,7 +9,7 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @Data
 @Builder
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EventUpdateDto {
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
     @Size(min = 20, max = 2000, message = "annotation must be greater than 20 and less than 2000")
     String annotation;
 

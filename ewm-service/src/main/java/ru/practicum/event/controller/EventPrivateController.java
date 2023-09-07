@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.EventService;
+
 import ru.practicum.event.dto.*;
 import ru.practicum.request.dto.RequestDto;
 
@@ -24,7 +25,7 @@ public class EventPrivateController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EventFullDto addEvent(@Valid @RequestBody NewEventDto eventNewDto,
+    public EventFullDto addEvent(@Valid @RequestBody EventNewDto eventNewDto,
                                  @PathVariable Long userId) {
 
         log.info("User id {}, add Event {} ", userId, eventNewDto.getAnnotation());
