@@ -4,7 +4,7 @@ import lombok.experimental.UtilityClass;
 import ru.practicum.compilation.dto.CompilationDto;
 import ru.practicum.compilation.dto.NewCompilationDto;
 import ru.practicum.compilation.model.Compilation;
-import ru.practicum.event.EventMapper;
+import ru.practicum.event.service.EventMapper;
 import ru.practicum.event.dto.EventShortDto;
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import java.util.Set;
 public class CompilationMapper {
 
     public CompilationDto makeCompilationInDto(Compilation compilation) {
-        List<EventShortDto> eventShortDtoList = EventMapper.returnEventShortDtoList(compilation.getEvents());
+        List<EventShortDto> eventShortDtoList = EventMapper.makeEventShortDtoList(compilation.getEvents());
         Set<EventShortDto> eventShortDtoSet = new HashSet<>(eventShortDtoList);
         return CompilationDto.builder()
                 .id(compilation.getId())

@@ -2,7 +2,7 @@ package ru.practicum.event.dto;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.util.enums.Status;
+import ru.practicum.enums.Status;
 
 import java.util.List;
 
@@ -11,10 +11,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RequestUpdateDtoRequest {
+public class EventRequestStatusUpdateDtoRequest {
 
     List<Long> requestIds;
-
     Status status;
 }
 

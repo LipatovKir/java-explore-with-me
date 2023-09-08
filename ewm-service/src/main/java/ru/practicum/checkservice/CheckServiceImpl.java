@@ -1,4 +1,4 @@
-package ru.practicum.util;
+package ru.practicum.checkservice;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -6,11 +6,11 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.repository.CompilationRepository;
-import ru.practicum.event.EventRepository;
+import ru.practicum.event.repository.EventRepository;
 import ru.practicum.event.model.Event;
 import ru.practicum.exception.NotFoundException;
-import ru.practicum.request.Request;
-import ru.practicum.request.RequestRepository;
+import ru.practicum.request.model.Request;
+import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.user.User;
 import ru.practicum.user.UserRepository;
 

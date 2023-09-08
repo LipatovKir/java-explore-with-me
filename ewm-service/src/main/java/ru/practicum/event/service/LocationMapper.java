@@ -1,4 +1,4 @@
-package ru.practicum.event;
+package ru.practicum.event.service;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.event.dto.LocationDto;
@@ -7,19 +7,17 @@ import ru.practicum.event.model.Location;
 @UtilityClass
 public class LocationMapper {
 
-    public LocationDto returnLocationDto(Location location) {
-        LocationDto locationDto = LocationDto.builder()
+    public LocationDto makeLocationInDto(Location location) {
+        return LocationDto.builder()
                 .lat(location.getLat())
                 .lon(location.getLon())
                 .build();
-        return locationDto;
     }
 
-    public Location returnLocation(LocationDto locationDto) {
-        Location location = Location.builder()
+    public Location makeDtoInLocation(LocationDto locationDto) {
+        return Location.builder()
                 .lat(locationDto.getLat())
                 .lon(locationDto.getLon())
                 .build();
-        return location;
     }
 }

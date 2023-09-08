@@ -1,7 +1,8 @@
-package ru.practicum.request;
+package ru.practicum.request.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.practicum.util.enums.Status;
+import ru.practicum.request.model.Request;
+import ru.practicum.enums.Status;
 
 import java.util.List;
 import java.util.Optional;

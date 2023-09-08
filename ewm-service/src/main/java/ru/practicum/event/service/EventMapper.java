@@ -1,10 +1,10 @@
-package ru.practicum.event;
+package ru.practicum.event.service;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.service.CategoryMapper;
 import ru.practicum.event.dto.EventFullDto;
-import ru.practicum.event.dto.EventNewDto;
+import ru.practicum.event.dto.NewEventDto;
 import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
@@ -15,33 +15,32 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.practicum.util.enums.State.PENDING;
+import static ru.practicum.enums.State.PENDING;
 
 @UtilityClass
 public class EventMapper {
 
-    public Event returnEvent(EventNewDto eventNewDto, Category category, Location location, User user) {
-        Event event = Event.builder()
-                .annotation(eventNewDto.getAnnotation())
+    public Event makeDtoInEvent(NewEventDto newEventDto, Category category, Location location, User user) {
+        return Event.builder()
+                .annotation(newEventDto.getAnnotation())
                 .category(category)
-                .description(eventNewDto.getDescription())
-                .eventDate(eventNewDto.getEventDate())
+                .description(newEventDto.getDescription())
+                .eventDate(newEventDto.getEventDate())
                 .initiator(user)
                 .location(location)
-                .paid(eventNewDto.getPaid())
-                .participantLimit(eventNewDto.getParticipantLimit())
-                .requestModeration(eventNewDto.getRequestModeration())
+                .paid(newEventDto.getPaid())
+                .participantLimit(newEventDto.getParticipantLimit())
+                .requestModeration(newEventDto.getRequestModeration())
                 .createdOn(LocalDateTime.now())
                 .views(0L)
                 .state(PENDING)
                 .confirmedRequests(0L)
-                .title(eventNewDto.getTitle())
+                .title(newEventDto.getTitle())
                 .build();
-        return event;
     }
 
-    public EventFullDto returnEventFullDto(Event event) {
-        EventFullDto eventFullDto = EventFullDto.builder()
+    public EventFullDto makeEventInFullDto(Event event) {
+        return EventFullDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.makeCategoryInDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequests())
@@ -50,7 +49,7 @@ public class EventMapper {
                 .eventDate(event.getEventDate())
                 .id(event.getId())
                 .initiator(UserMapper.returnUserShortDto(event.getInitiator()))
-                .location(LocationMapper.returnLocationDto(event.getLocation()))
+                .location(LocationMapper.makeLocationInDto(event.getLocation()))
                 .paid(event.getPaid())
                 .participantLimit(event.getParticipantLimit())
                 .publishedOn(event.getPublishedOn())
@@ -59,12 +58,10 @@ public class EventMapper {
                 .title(event.getTitle())
                 .views(event.getViews())
                 .build();
-        return eventFullDto;
     }
 
-    public EventShortDto returnEventShortDto(Event event) {
-
-        EventShortDto eventShortDto = EventShortDto.builder()
+    public EventShortDto makeEventInShortDto(Event event) {
+        return EventShortDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.makeCategoryInDto(event.getCategory()))
                 .confirmedRequests(event.getConfirmedRequests())
@@ -75,23 +72,20 @@ public class EventMapper {
                 .title(event.getTitle())
                 .views(event.getViews())
                 .build();
-        return eventShortDto;
     }
 
-    public List<EventFullDto> returnEventFullDtoList(Iterable<Event> events) {
+    public List<EventFullDto> makeEventFullDtoList(Iterable<Event> events) {
         List<EventFullDto> result = new ArrayList<>();
-
         for (Event event : events) {
-            result.add(returnEventFullDto(event));
+            result.add(makeEventInFullDto(event));
         }
         return result;
     }
 
-    public List<EventShortDto> returnEventShortDtoList(Iterable<Event> events) {
+    public List<EventShortDto> makeEventShortDtoList(Iterable<Event> events) {
         List<EventShortDto> result = new ArrayList<>();
-
         for (Event event : events) {
-            result.add(returnEventShortDto(event));
+            result.add(makeEventInShortDto(event));
         }
         return result;
     }

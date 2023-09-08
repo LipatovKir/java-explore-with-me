@@ -1,4 +1,4 @@
-package ru.practicum.request;
+package ru.practicum.request.service;
 
 import ru.practicum.request.dto.RequestDto;
 
@@ -10,5 +10,5 @@ public interface RequestService {
 
     List<RequestDto> getRequestsByUserId(Long userId);
 
-    RequestDto cancelRequest(Long userId, Long requestId);
+    RequestDto cancelUserRequest(Long userId, Long requestId);
 }

@@ -18,21 +18,13 @@ import static ru.practicum.constants.Constants.DATE_FORMAT;
 public class EventShortDto {
 
     String annotation;
-
     CategoryDto category;
-
     Long confirmedRequests;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     LocalDateTime eventDate;
-
     Long id;
-
     UserShortDto initiator;
-
     Boolean paid;
-
     String title;
-
     Long views;
 }

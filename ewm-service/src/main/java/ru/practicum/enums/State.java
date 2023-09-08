@@ -1,8 +1,9 @@
-package ru.practicum.util.enums;
+package ru.practicum.enums;
 
 import ru.practicum.exception.ValidationException;
 
 public enum State {
+
     PENDING,
     PUBLISHED,
     CANCELED;

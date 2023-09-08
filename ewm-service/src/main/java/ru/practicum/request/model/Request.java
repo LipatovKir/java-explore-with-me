@@ -1,11 +1,18 @@
-package ru.practicum.event.model;
+package ru.practicum.request.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.proxy.HibernateProxy;
+import ru.practicum.event.model.Event;
+import ru.practicum.user.User;
+import ru.practicum.enums.Status;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
+
+import static ru.practicum.constants.Constants.DATE_FORMAT;
 
 @Getter
 @Setter
@@ -14,18 +21,29 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "locations")
+@Table(name = "requests", schema = "public")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Location {
+public class Request {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     Long id;
-    @Column(name = "lat")
-    Float lat;
-    @Column(name = "lon")
-    Float lon;
+    @Column(name = "created")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    LocalDateTime created;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_id")
+    @ToString.Exclude
+    Event event;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requester_id")
+    @ToString.Exclude
+    User requester;
+
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    Status status;
 
     @Override
     public final boolean equals(Object o) {
@@ -34,8 +52,8 @@ public class Location {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Location location = (Location) o;
-        return getId() != null && Objects.equals(getId(), location.getId());
+        Request request = (Request) o;
+        return getId() != null && Objects.equals(getId(), request.getId());
     }
 
     @Override

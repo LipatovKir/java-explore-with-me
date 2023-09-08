@@ -1,18 +1,23 @@
-package ru.practicum.request;
+package ru.practicum.request.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.event.EventRepository;
+import ru.practicum.event.repository.EventRepository;
 import ru.practicum.exception.ConflictException;
+import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.request.dto.RequestDto;
+import ru.practicum.request.model.Request;
 import ru.practicum.user.User;
 import ru.practicum.event.model.Event;
-import ru.practicum.util.enums.State;
-import ru.practicum.util.enums.Status;
+import ru.practicum.enums.State;
+import ru.practicum.enums.Status;
+
 import java.time.LocalDateTime;
-import ru.practicum.util.CheckService;
+
+import ru.practicum.checkservice.CheckService;
+
 import java.util.List;
 
 @Slf4j
@@ -23,70 +28,56 @@ public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
     private final EventRepository eventRepository;
-    private final CheckService unionService;
+    private final CheckService checkService;
 
     @Override
     @Transactional
     public RequestDto addRequest(Long userId, Long eventId) {
-
-        User user = unionService.checkUser(userId);
-        Event event = unionService.checkEvent(eventId);
-
+        User user = checkService.checkUser(userId);
+        Event event = checkService.checkEvent(eventId);
         if (event.getParticipantLimit() <= event.getConfirmedRequests() && event.getParticipantLimit() != 0) {
-            throw new ConflictException(String.format("Event %s requests exceed the limit", event));
+            throw new ConflictException(String.format("Превышено количество запросов на событие %s ", event));
         }
-
         if (event.getInitiator().getId().equals(userId)) {
-            throw new ConflictException(String.format("Initiator, user id %s cannot give a request to participate in his event", user.getId()));
+            throw new ConflictException(String.format("Пользователь id %s не может отправить запрос на участие в своем событии ", user.getId()));
         }
-
         if (requestRepository.findByRequesterIdAndEventId(userId, eventId).isPresent()) {
-            throw new ConflictException(String.format("You have already applied to participate in Event %s", event.getTitle()));
+            throw new ConflictException(String.format("Вами уже подан запрос на событие %s", event.getTitle()));
         }
-
         if (event.getState() != State.PUBLISHED) {
-            throw new ConflictException(String.format("Event %s has not been published, you cannot request participation", eventId));
+            throw new ConflictException(String.format("Событиие %s еще не опубликовано ", eventId));
         } else {
-
             Request request = Request.builder()
                     .requester(user)
                     .event(event)
                     .created(LocalDateTime.now())
                     .status(Status.PENDING)
                     .build();
-
-            if (!event.getRequestModeration() || event.getParticipantLimit() == 0) {
+            if (Boolean.TRUE.equals(!event.getRequestModeration()) || event.getParticipantLimit() == 0) {
                 request.setStatus(Status.CONFIRMED);
                 request = requestRepository.save(request);
                 event.setConfirmedRequests(requestRepository.countAllByEventIdAndStatus(eventId, Status.CONFIRMED));
                 eventRepository.save(event);
-
-                return RequestMapper.returnRequestDto(request);
+                return RequestMapper.makeRequestInDto(request);
             }
-
             request = requestRepository.save(request);
-
-            return RequestMapper.returnRequestDto(request);
+            return RequestMapper.makeRequestInDto(request);
         }
     }
 
     @Override
     public List<RequestDto> getRequestsByUserId(Long userId) {
-
-        unionService.checkUser(userId);
+        checkService.checkUser(userId);
         List<Request> requestList = requestRepository.findByRequesterId(userId);
-
-        return RequestMapper.returnRequestDtoList(requestList);
+        return RequestMapper.makeRequestDtoList(requestList);
     }
 
     @Override
     @Transactional
-    public RequestDto cancelRequest(Long userId, Long requestId) {
-
-        unionService.checkUser(userId);
-        Request request = unionService.checkRequest(requestId);
+    public RequestDto cancelUserRequest(Long userId, Long requestId) {
+        checkService.checkUser(userId);
+        Request request = checkService.checkRequest(requestId);
         request.setStatus(Status.CANCELED);
-
-        return RequestMapper.returnRequestDto(requestRepository.save(request));
+        return RequestMapper.makeRequestInDto(requestRepository.save(request));
     }
 }

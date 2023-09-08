@@ -1,9 +1,9 @@
-package ru.practicum.util;
+package ru.practicum.checkservice;
 
 import ru.practicum.categories.model.Category;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.event.model.Event;
-import ru.practicum.request.Request;
+import ru.practicum.request.model.Request;
 import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
