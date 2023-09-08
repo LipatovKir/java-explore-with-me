@@ -1,8 +1,9 @@
-package ru.practicum.user;
+package ru.practicum.user.service;
 
 import lombok.experimental.UtilityClass;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.dto.UserShortDto;
+import ru.practicum.user.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,37 +11,33 @@ import java.util.List;
 @UtilityClass
 public class UserMapper {
 
-    public UserDto returnUserDto(User user) {
-        UserDto userDto = UserDto.builder()
+    public UserDto makeUserInDto(User user) {
+        return UserDto.builder()
                 .id(user.getId())
                 .email(user.getEmail())
                 .name(user.getName())
                 .build();
-        return userDto;
     }
 
-    public UserShortDto returnUserShortDto(User user) {
-        UserShortDto userShortDto = UserShortDto.builder()
+    public UserShortDto makeUserInShortDto(User user) {
+        return UserShortDto.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .build();
-        return userShortDto;
     }
 
-    public User returnUser(UserDto userDto) {
-        User user = User.builder()
+    public User makeDtoInUser(UserDto userDto) {
+        return User.builder()
                 .id(userDto.getId())
                 .email(userDto.getEmail())
                 .name(userDto.getName())
                 .build();
-        return user;
     }
 
-    public List<UserDto> returnUserDtoList(Iterable<User> users) {
+    public List<UserDto> makeUserDtoList(Iterable<User> users) {
         List<UserDto> result = new ArrayList<>();
-
         for (User user : users) {
-            result.add(returnUserDto(user));
+            result.add(makeUserInDto(user));
         }
         return result;
     }

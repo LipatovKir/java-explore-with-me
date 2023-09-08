@@ -1,4 +1,4 @@
-package ru.practicum.user;
+package ru.practicum.user.service;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.AllArgsConstructor;
@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.checkservice.CheckService;
+import ru.practicum.user.model.User;
+import ru.practicum.user.repository.UserRepository;
 
 import java.util.List;
 
@@ -17,35 +19,30 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final CheckService unionService;
+    private final CheckService checkService;
 
     @Transactional
     @Override
     public UserDto addUser(UserDto userDto) {
-
-        User user = UserMapper.returnUser(userDto);
+        User user = UserMapper.makeDtoInUser(userDto);
         userRepository.save(user);
-
-        return UserMapper.returnUserDto(user);
+        return UserMapper.makeUserInDto(user);
     }
 
     @Override
-    public List<UserDto> getUsers(List<Long> ids, Integer from, Integer size) {
-
+    public List<UserDto> getUsers(List<Long> idCount, Integer from, Integer size) {
         PageRequest pageRequest = PageRequest.of(from / size, size);
-
-        if (ids == null) {
-            return UserMapper.returnUserDtoList(userRepository.findAll(pageRequest));
+        if (idCount == null) {
+            return UserMapper.makeUserDtoList(userRepository.findAll(pageRequest));
         } else {
-            return UserMapper.returnUserDtoList(userRepository.findByIdInOrderByIdAsc(ids, pageRequest));
+            return UserMapper.makeUserDtoList(userRepository.findByIdInOrderByIdAsc(idCount, pageRequest));
         }
     }
 
     @Transactional
     @Override
     public void deleteUser(long userId) {
-
-        unionService.checkUser(userId);
+        checkService.checkUser(userId);
         userRepository.deleteById(userId);
     }
 }

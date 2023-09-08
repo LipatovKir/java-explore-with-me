@@ -4,7 +4,7 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.event.model.Event;
 import ru.practicum.request.model.Request;
-import ru.practicum.user.User;
+import ru.practicum.user.model.User;
 
 import java.time.LocalDateTime;
 

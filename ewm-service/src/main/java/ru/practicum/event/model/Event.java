@@ -5,7 +5,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.proxy.HibernateProxy;
 import ru.practicum.categories.model.Category;
-import ru.practicum.user.User;
+import ru.practicum.user.model.User;
 import ru.practicum.enums.State;
 
 import javax.persistence.*;

@@ -25,7 +25,7 @@ import ru.practicum.request.model.Request;
 import ru.practicum.request.service.RequestMapper;
 import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.request.dto.RequestDto;
-import ru.practicum.user.User;
+import ru.practicum.user.model.User;
 import ru.practicum.enums.State;
 import ru.practicum.enums.StateAction;
 import ru.practicum.checkservice.CheckService;

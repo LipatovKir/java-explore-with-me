@@ -9,7 +9,7 @@ import ru.practicum.exception.ConflictException;
 import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.request.dto.RequestDto;
 import ru.practicum.request.model.Request;
-import ru.practicum.user.User;
+import ru.practicum.user.model.User;
 import ru.practicum.event.model.Event;
 import ru.practicum.enums.State;
 import ru.practicum.enums.Status;

@@ -8,8 +8,8 @@ import ru.practicum.event.dto.NewEventDto;
 import ru.practicum.event.dto.EventShortDto;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
-import ru.practicum.user.User;
-import ru.practicum.user.UserMapper;
+import ru.practicum.user.model.User;
+import ru.practicum.user.service.UserMapper;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class EventMapper {
                 .description(event.getDescription())
                 .eventDate(event.getEventDate())
                 .id(event.getId())
-                .initiator(UserMapper.returnUserShortDto(event.getInitiator()))
+                .initiator(UserMapper.makeUserInShortDto(event.getInitiator()))
                 .location(LocationMapper.makeLocationInDto(event.getLocation()))
                 .paid(event.getPaid())
                 .participantLimit(event.getParticipantLimit())
@@ -67,7 +67,7 @@ public class EventMapper {
                 .confirmedRequests(event.getConfirmedRequests())
                 .eventDate(event.getEventDate())
                 .id(event.getId())
-                .initiator(UserMapper.returnUserShortDto(event.getInitiator()))
+                .initiator(UserMapper.makeUserInShortDto(event.getInitiator()))
                 .paid(event.getPaid())
                 .title(event.getTitle())
                 .views(event.getViews())
