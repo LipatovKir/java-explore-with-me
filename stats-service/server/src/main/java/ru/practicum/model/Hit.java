@@ -14,7 +14,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "hits", schema = "public")
 @FieldDefaults(level = AccessLevel.PRIVATE)
