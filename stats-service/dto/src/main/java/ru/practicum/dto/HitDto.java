@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static ru.practicum.constants.Constants.DATE_PATTERN;
+import static ru.practicum.Util.DATE_FORMAT;
 
 @Data
 @Builder
@@ -18,13 +18,17 @@ import static ru.practicum.constants.Constants.DATE_PATTERN;
 public class HitDto {
 
     Long id;
-    @NotBlank
+
+    @NotBlank(message = "app cannot be empty and consist only of spaces.")
     String app;
-    @NotBlank
+
+    @NotBlank(message = "uri cannot be empty and consist only of spaces.")
     String uri;
-    @NotBlank
+
+    @NotBlank(message = "ip cannot be empty and consist only of spaces.")
     String ip;
+
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     LocalDateTime timestamp;
 }

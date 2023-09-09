@@ -13,13 +13,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import static ru.practicum.constants.Constants.DATE_PATTERN;
+import static ru.practicum.Util.DATE_FORMAT;
 
 @Service
 public class StatsClient extends BaseClient {
 
+    public ResponseEntity<Object> addHit(HitDto hitDto) {
+        return post("/hit", hitDto);
+    }
+
     @Autowired
-    public StatsClient(@Value("http://localhost:9090") String serverUrl, RestTemplateBuilder builder) {
+    public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
+
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
@@ -28,15 +33,11 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public void addHit(HitDto hitDto) {
-        post("/hit", hitDto);
-    }
-
-    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, String uris, boolean unique) {
+    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime  end, String uris, boolean unique) {
 
         Map<String, Object> parameters = Map.of(
-                "start", start.format(DateTimeFormatter.ofPattern(DATE_PATTERN)),
-                "end", end.format(DateTimeFormatter.ofPattern(DATE_PATTERN)),
+                "start", start.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
+                "end", end.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
                 "uris", uris,
                 "unique", unique
         );

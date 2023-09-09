@@ -3,11 +3,11 @@ package ru.practicum.request.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.enums.Status;
+import ru.practicum.util.enums.Status;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.constants.Constants.DATE_PATTERN;
+import static ru.practicum.Util.DATE_FORMAT;
 
 @Data
 @Builder
@@ -17,9 +17,13 @@ import static ru.practicum.constants.Constants.DATE_PATTERN;
 public class RequestDto {
 
     Long id;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
     LocalDateTime created;
+
     Long event;
+
     Long requester;
+
     Status status;
 }
