@@ -6,7 +6,7 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.repository.CompilationRepository;
-import ru.practicum.event.repository.EventRepository;
+import ru.practicum.event.EventRepository;
 import ru.practicum.event.model.Event;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.request.model.Request;

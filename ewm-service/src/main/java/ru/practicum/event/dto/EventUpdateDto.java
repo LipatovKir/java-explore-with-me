@@ -16,21 +16,30 @@ import static ru.practicum.constants.Constants.DATE_PATTERN;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UpdateEventDto {
+public class EventUpdateDto {
 
-    @Size(min = 20, max = 2000)
+    @Size(min = 20, max = 2000, message = "annotation must be greater than 20 and less than 2000")
     String annotation;
+
     Long category;
-    @Size(min = 20, max = 7000)
+
+    @Size(min = 20, max = 7000, message = "description must be greater than 20 and less than 7000")
     String description;
+
     @FutureOrPresent
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime eventDate;
+
     LocationDto location;
+
     Boolean paid;
+
     Long participantLimit;
+
     Boolean requestModeration;
+
     StateAction stateAction;
-    @Size(min = 3, max = 120)
+
+    @Size(min = 3, max = 120, message = "title must be greater than 3 and less than 120")
     String title;
 }
