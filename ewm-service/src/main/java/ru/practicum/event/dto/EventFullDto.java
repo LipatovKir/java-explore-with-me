@@ -10,7 +10,7 @@ import ru.practicum.enums.State;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.constants.Constants.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
 
 @Data
 @Builder
@@ -22,17 +22,17 @@ public class EventFullDto {
     String annotation;
     CategoryDto category;
     Long confirmedRequests;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime createdOn;
     String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime eventDate;
     Long id;
     UserShortDto initiator;
     LocationDto location;
     Boolean paid;
     Long participantLimit;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime publishedOn;
     Boolean requestModeration;
     State state;

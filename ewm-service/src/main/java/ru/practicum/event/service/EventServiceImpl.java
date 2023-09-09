@@ -230,15 +230,9 @@ public class EventServiceImpl implements EventService {
                                                  String ip) {
         LocalDateTime startTime = checkService.parseDate(rangeStart);
         LocalDateTime endTime = checkService.parseDate(rangeEnd);
-        if (startTime != null && endTime != null) {
-            if (startTime.isAfter(endTime)) {
-                throw new ValidationException("Start не может быть позже End");
-            }
-        }
-       /* if (startTime != null && endTime != null && (startTime.isAfter(endTime))) {
+        if (startTime != null && endTime != null && startTime.isAfter(endTime)) {
             throw new ValidationException("Start не может быть позже End");
-        }*/
-
+        }
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findEventsByPublicFromParam(text,
                 categories,

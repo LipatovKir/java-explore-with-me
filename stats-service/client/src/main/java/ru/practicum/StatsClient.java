@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import static ru.practicum.constants.Constants.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
 
 @Service
 public class StatsClient extends BaseClient {
@@ -35,8 +35,8 @@ public class StatsClient extends BaseClient {
     public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, String uris, boolean unique) {
 
         Map<String, Object> parameters = Map.of(
-                "start", start.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
-                "end", end.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
+                "start", start.format(DateTimeFormatter.ofPattern(DATE_PATTERN)),
+                "end", end.format(DateTimeFormatter.ofPattern(DATE_PATTERN)),
                 "uris", uris,
                 "unique", unique
         );

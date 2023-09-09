@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static ru.practicum.constants.Constants.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
 
 @Getter
 @Setter
@@ -30,7 +30,7 @@ public class Request {
     @EqualsAndHashCode.Include
     Long id;
     @Column(name = "created")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime created;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "event_id")

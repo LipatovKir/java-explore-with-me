@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-import static ru.practicum.constants.Constants.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
 
 @Data
 @Builder
@@ -25,6 +25,6 @@ public class HitDto {
     @NotBlank
     String ip;
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN )
     LocalDateTime timestamp;
 }

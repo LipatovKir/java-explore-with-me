@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static ru.practicum.constants.Constants.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
 
 
 @Getter
@@ -50,7 +50,7 @@ public class Event {
     @Column(name = "annotation")
     String annotation;
     @Column(name = "event_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime eventDate;
     @Column(name = "paid")
     Boolean paid;
@@ -64,10 +64,10 @@ public class Event {
     @Column(name = "request_moderation")
     Boolean requestModeration;
     @Column(name = "published_on")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime publishedOn;
     @Column(name = "created_on")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime createdOn;
     @Enumerated(EnumType.STRING)
     @Column(name = "state")
