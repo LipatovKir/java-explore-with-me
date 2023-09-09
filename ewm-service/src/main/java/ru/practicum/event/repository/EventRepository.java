@@ -1,10 +1,9 @@
-package ru.practicum.event;
+package ru.practicum.event.repository;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 import ru.practicum.enums.State;
 import ru.practicum.event.model.Event;
 
@@ -12,7 +11,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-@Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findByInitiatorId(Long initiatorId, PageRequest pageRequest);
@@ -32,7 +30,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "OR (CAST(:rangeEnd AS date) IS NULL AND e.eventDate > CAST(:rangeStart AS date)) " +
             "GROUP BY e.id " +
             "ORDER BY e.id ASC")
-
     List<Event> findEventsByAdminFromParam(@Param("users") List<Long> users,
                                            @Param("states") List<State> states,
                                            @Param("categories") List<Long> categories,
@@ -61,6 +58,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                             @Param("rangeStart") LocalDateTime startTime,
                                             @Param("rangeEnd") LocalDateTime endTime,
                                             @Param("onlyAvailable") Boolean onlyAvailable,
-                                            @Param("sort") String sort,
-                                            PageRequest pageRequest);
+                                            @Param("sort") String sort);
 }

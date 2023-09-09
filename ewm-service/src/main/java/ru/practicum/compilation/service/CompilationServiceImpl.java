@@ -11,7 +11,8 @@ import ru.practicum.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.repository.CompilationRepository;
 import ru.practicum.checkservice.CheckService;
-import ru.practicum.event.EventRepository;
+import ru.practicum.event.repository.EventRepository;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
