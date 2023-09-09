@@ -11,7 +11,8 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
+
 
 @Data
 @Builder
@@ -48,7 +49,7 @@ public class Event {
     String annotation;
 
     @Column(name = "event_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime eventDate;
 
     @Column(name = "paid")
@@ -68,11 +69,11 @@ public class Event {
     Boolean requestModeration;
 
     @Column(name = "published_on")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime publishedOn;
 
     @Column(name = "created_on")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime createdOn;
 
     @Enumerated(EnumType.STRING)

@@ -10,7 +10,8 @@ import ru.practicum.util.enums.Status;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
+
 
 @Data
 @Builder
@@ -28,7 +29,7 @@ public class Request {
     Long id;
 
     @Column(name = "created")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime created;
 
     @ManyToOne(fetch = FetchType.LAZY)

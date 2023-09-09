@@ -31,7 +31,8 @@ import ru.practicum.util.enums.Status;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static ru.practicum.Util.START_HISTORY;
+
+import static ru.practicum.constants.Constants.START_HISTORY;
 import static ru.practicum.util.enums.State.PUBLISHED;
 
 @Slf4j
@@ -323,7 +324,7 @@ public class EventServiceImpl implements EventService {
     private Long getViewsEventById(Long eventId) {
 
         String uri = "/events/" + eventId;
-        ResponseEntity<Object> response = client.findStats(START_HISTORY, LocalDateTime.now(), uri, true);
+        ResponseEntity<Object> response = client.getStats(START_HISTORY, LocalDateTime.now(), uri, true);
         List<StatsDto> result = objectMapper.convertValue(response.getBody(), new TypeReference<>() {});
 
         if (result.isEmpty()) {

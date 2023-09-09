@@ -17,7 +17,8 @@ import ru.practicum.user.UserRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static ru.practicum.Util.FORMATTER;
+import static ru.practicum.constants.Constants.FORMATTER;
+
 
 @Service
 @RequiredArgsConstructor

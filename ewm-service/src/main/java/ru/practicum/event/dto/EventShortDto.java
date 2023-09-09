@@ -8,7 +8,7 @@ import ru.practicum.user.dto.UserShortDto;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.constants.Constants.DATE_PATTERN;
 
 @Data
 @Builder
@@ -23,7 +23,7 @@ public class EventShortDto {
 
     Long confirmedRequests;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_FORMAT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime eventDate;
 
     Long id;

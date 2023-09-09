@@ -10,9 +10,7 @@ import lombok.experimental.FieldDefaults;
 public class StatsDto {
 
     String app;
-
     String uri;
-
     Long hits;
 
     public StatsDto(String app, String uri, Long hits) {
