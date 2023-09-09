@@ -12,7 +12,7 @@ import static ru.practicum.constants.Constants.DATE_PATTERN;
 @Data
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class NewEventDto {
 
