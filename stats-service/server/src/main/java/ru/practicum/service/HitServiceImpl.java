@@ -28,11 +28,9 @@ public class HitServiceImpl implements HitService {
 
     @Override
     public List<StatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-
         if (start != null && end != null && (start.isAfter(end))) {
             throw new StatsValidationException("Время START не может позже времени END ");
         }
-
         if (uris == null || uris.isEmpty()) {
             if (Boolean.TRUE.equals(unique)) {
                 log.info("Получение статистики по ip: ");
