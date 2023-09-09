@@ -25,6 +25,6 @@ public class HitDto {
     @NotBlank
     String ip;
     @NotNull
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN )
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_PATTERN)
     LocalDateTime timestamp;
 }
