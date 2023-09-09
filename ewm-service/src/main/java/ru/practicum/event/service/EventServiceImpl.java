@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static ru.practicum.Util.START_HISTORY;
+import static ru.practicum.Constant.START_OF_REPORT;
 import static ru.practicum.enums.State.PUBLISHED;
 
 @Slf4j
@@ -305,7 +305,7 @@ public class EventServiceImpl implements EventService {
 
     private Long getEventViewsCountById(Long eventId) {
         String uri = "/events/" + eventId;
-        ResponseEntity<Object> response = client.getStats(START_HISTORY,
+        ResponseEntity<Object> response = client.getStats(START_OF_REPORT,
                 LocalDateTime.now(),
                 uri,
                 true);

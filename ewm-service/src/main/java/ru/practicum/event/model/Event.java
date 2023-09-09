@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.Constant.DATE_FORMAT;
 
 
 @Getter

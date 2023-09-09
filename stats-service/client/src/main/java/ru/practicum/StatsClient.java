@@ -12,7 +12,7 @@ import ru.practicum.dto.HitDto;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import static ru.practicum.Util.FORMATTER;
+import static ru.practicum.Constant.FORMATTER;
 
 @Service
 public class StatsClient extends BaseClient {

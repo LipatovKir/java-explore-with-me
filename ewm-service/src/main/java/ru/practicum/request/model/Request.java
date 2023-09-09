@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.proxy.HibernateProxy;
+import ru.practicum.enums.Status;
 import ru.practicum.event.model.Event;
 import ru.practicum.user.model.User;
-import ru.practicum.enums.Status;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.Constant.DATE_FORMAT;
 
 
 @Getter

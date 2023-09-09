@@ -6,8 +6,8 @@ import ru.practicum.categories.model.Category;
 import ru.practicum.categories.repository.CategoryRepository;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.repository.CompilationRepository;
-import ru.practicum.event.repository.EventRepository;
 import ru.practicum.event.model.Event;
+import ru.practicum.event.repository.EventRepository;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.request.model.Request;
 import ru.practicum.request.repository.RequestRepository;
@@ -17,7 +17,7 @@ import ru.practicum.user.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import static ru.practicum.Util.FORMATTER;
+import static ru.practicum.Constant.FORMATTER;
 
 
 @Service

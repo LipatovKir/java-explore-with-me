@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.practicum.Util.FORMATTER;
+import static ru.practicum.Constant.FORMATTER;
 
 @Slf4j
 @RestController

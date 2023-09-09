@@ -3,14 +3,13 @@ package ru.practicum.event.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.user.dto.UserShortDto;
-
 import ru.practicum.categories.dto.CategoryDto;
 import ru.practicum.enums.State;
+import ru.practicum.user.dto.UserShortDto;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.Constant.DATE_FORMAT;
 
 
 @Data

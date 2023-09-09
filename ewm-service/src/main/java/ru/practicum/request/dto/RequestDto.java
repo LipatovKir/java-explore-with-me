@@ -7,7 +7,7 @@ import ru.practicum.enums.Status;
 
 import java.time.LocalDateTime;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.Constant.DATE_FORMAT;
 
 
 @Data
