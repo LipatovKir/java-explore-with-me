@@ -206,7 +206,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventFullDto getEventById(Long eventId, String uri, String ip) {
-
         Event event = checkService.checkEvent(eventId);
         if (!event.getState().equals(PUBLISHED)) {
             throw new NotFoundException(Event.class, String.format("Событие %s не опубликовано", eventId));
@@ -231,9 +230,14 @@ public class EventServiceImpl implements EventService {
                                                  String ip) {
         LocalDateTime startTime = checkService.parseDate(rangeStart);
         LocalDateTime endTime = checkService.parseDate(rangeEnd);
-        if (startTime != null && endTime != null && (startTime.isAfter(endTime))) {
-            throw new ValidationException("Start не может быть позже End");
+        if (startTime != null && endTime != null) {
+            if (startTime.isAfter(endTime)) {
+                throw new ValidationException("Start не может быть позже End");
+            }
         }
+       /* if (startTime != null && endTime != null && (startTime.isAfter(endTime))) {
+            throw new ValidationException("Start не может быть позже End");
+        }*/
 
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findEventsByPublicFromParam(text,
