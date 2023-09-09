@@ -10,21 +10,19 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.HitDto;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
-import static ru.practicum.Util.DATE_FORMAT;
+import static ru.practicum.Util.FORMATTER;
 
 @Service
 public class StatsClient extends BaseClient {
 
-    public ResponseEntity<Object> addHit(HitDto hitDto) {
-        return post("/hit", hitDto);
+    public void addHit(HitDto hitDto) {
+        post(hitDto);
     }
 
     @Autowired
     public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
-
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
@@ -33,14 +31,13 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime  end, String uris, boolean unique) {
-
+    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime  end, String uris, boolean unique) {
         Map<String, Object> parameters = Map.of(
-                "start", start.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
-                "end", end.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
+                "start", start.format(FORMATTER),
+                "end", end.format(FORMATTER),
                 "uris", uris,
                 "unique", unique
         );
-        return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
+        return get(parameters);
     }
 }
