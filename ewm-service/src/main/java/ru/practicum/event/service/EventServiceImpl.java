@@ -11,8 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsClient;
 import ru.practicum.categories.model.Category;
+import ru.practicum.checkservice.CheckService;
 import ru.practicum.dto.HitDto;
 import ru.practicum.dto.StatsDto;
+import ru.practicum.enums.State;
+import ru.practicum.enums.StateAction;
+import ru.practicum.enums.Status;
 import ru.practicum.event.dto.*;
 import ru.practicum.event.model.Event;
 import ru.practicum.event.model.Location;
@@ -21,18 +25,17 @@ import ru.practicum.event.repository.LocationRepository;
 import ru.practicum.exception.ConflictException;
 import ru.practicum.exception.NotFoundException;
 import ru.practicum.exception.ValidationException;
-import ru.practicum.request.model.Request;
-import ru.practicum.request.service.RequestMapper;
-import ru.practicum.request.repository.RequestRepository;
 import ru.practicum.request.dto.RequestDto;
+import ru.practicum.request.model.Request;
+import ru.practicum.request.repository.RequestRepository;
+import ru.practicum.request.service.RequestMapper;
 import ru.practicum.user.model.User;
-import ru.practicum.enums.State;
-import ru.practicum.enums.StateAction;
-import ru.practicum.checkservice.CheckService;
-import ru.practicum.enums.Status;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 import static ru.practicum.Util.START_HISTORY;
 import static ru.practicum.enums.State.PUBLISHED;
@@ -230,15 +233,9 @@ public class EventServiceImpl implements EventService {
                                                  String ip) {
         LocalDateTime startTime = checkService.parseDate(rangeStart);
         LocalDateTime endTime = checkService.parseDate(rangeEnd);
-        if (startTime != null && endTime != null) {
-            if (startTime.isAfter(endTime)) {
-                throw new ValidationException("Start не может быть позже End");
-            }
-        }
-       /* if (startTime != null && endTime != null && (startTime.isAfter(endTime))) {
+        if (startTime != null && endTime != null && (startTime.isAfter(endTime))) {
             throw new ValidationException("Start не может быть позже End");
-        }*/
-
+        }
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findEventsByPublicFromParam(text,
                 categories,

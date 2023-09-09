@@ -5,8 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.hibernate.proxy.HibernateProxy;
 import ru.practicum.categories.model.Category;
-import ru.practicum.user.model.User;
 import ru.practicum.enums.State;
+import ru.practicum.user.model.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -39,7 +39,6 @@ public class Event {
     @JoinColumn(name = "category_id", nullable = false)
     @ToString.Exclude
     Category category;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     @ToString.Exclude
