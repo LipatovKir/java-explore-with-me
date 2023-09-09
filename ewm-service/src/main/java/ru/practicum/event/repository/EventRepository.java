@@ -37,7 +37,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                            @Param("rangeEnd") LocalDateTime rangeEnd,
                                            PageRequest pageRequest);
 
-    @Query(value = "SELECT e FROM Event AS e " +
+  /*  @Query(value = "SELECT e FROM Event AS e " +
             "WHERE (e.state = 'PUBLISHED') " +
             "AND (:text IS NULL) " +
             "OR (LOWER(e.annotation) LIKE LOWER(CONCAT('%', :text, '%'))) " +
@@ -59,5 +59,13 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                             @Param("rangeEnd") LocalDateTime endTime,
                                             @Param("onlyAvailable") Boolean onlyAvailable,
                                             @Param("sort") String sort,
-                                            PageRequest pageRequest);
+                                            PageRequest pageRequest);*/
+  List<Event> findEventsByPublicFromParam(String text,
+                                          List<Long> categories,
+                                          Boolean paid,
+                                          LocalDateTime startTime,
+                                          LocalDateTime endTime,
+                                          Boolean onlyAvailable,
+                                          String sort,
+                                          PageRequest pageRequest);
 }
