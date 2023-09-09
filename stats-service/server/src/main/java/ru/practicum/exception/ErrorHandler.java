@@ -10,7 +10,7 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleThrowable(final TimeValidationException e) {
+    public ErrorResponse handleThrowable(final StatsValidationException e) {
         return new ErrorResponse(e.getMessage());
     }
 }
