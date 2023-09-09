@@ -58,5 +58,6 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                             @Param("rangeStart") LocalDateTime startTime,
                                             @Param("rangeEnd") LocalDateTime endTime,
                                             @Param("onlyAvailable") Boolean onlyAvailable,
-                                            @Param("sort") String sort);
+                                            @Param("sort") String sort,
+                                            PageRequest pageRequest);
 }

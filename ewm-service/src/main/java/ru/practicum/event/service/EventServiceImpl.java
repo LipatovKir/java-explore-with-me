@@ -236,14 +236,14 @@ public class EventServiceImpl implements EventService {
         if (startTime != null && endTime != null && startTime.isAfter(endTime)) {
             throw new ValidationException("Start не может быть позже End");
         }
-      //  PageRequest pageRequest = PageRequest.of(from / size, size);
+        PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findEventsByPublicFromParam(text,
                 categories,
                 paid,
                 startTime,
                 endTime,
                 onlyAvailable,
-                sort);
+                sort, pageRequest);
         recordHit(uri, ip);
         for (Event event : events) {
             event.setViews(getEventViewsCountById(event.getId()));
