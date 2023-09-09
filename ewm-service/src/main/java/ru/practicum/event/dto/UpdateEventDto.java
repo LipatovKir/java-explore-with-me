@@ -31,6 +31,6 @@ public class UpdateEventDto {
     Long participantLimit;
     Boolean requestModeration;
     StateAction stateAction;
-    @Size(min = 3, max = 120)
+    @Size(min = 3, max = 2000)
     String title;
 }

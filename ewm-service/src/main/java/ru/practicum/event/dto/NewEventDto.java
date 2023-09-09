@@ -42,6 +42,6 @@ public class NewEventDto {
     @Builder.Default
     Boolean requestModeration = true;
     @NotBlank
-    @Size(min = 3, max = 120)
+    @Size(min = 3, max = 2000)
     String title;
 }
