@@ -30,54 +30,33 @@ public class CheckServiceImpl implements CheckService {
     private final RequestRepository requestRepository;
     private final CompilationRepository compilationRepository;
 
+    private <T> T checkEntity(Optional<T> entity, Class<T> entityClass, String entityId) {
+        return entity.orElseThrow(() -> new NotFoundException(entityClass, entityId + " не найден!"));
+    }
+
     @Override
     public User checkUser(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) {
-            throw new NotFoundException(User.class, "Пользователь " + userId + " не найден! ");
-        } else {
-            return user.get();
-        }
+        return checkEntity(userRepository.findById(userId), User.class, "Пользователь " + userId);
     }
 
     @Override
     public Category checkCategory(Long categoryId) {
-        Optional<Category> category = categoryRepository.findById(categoryId);
-        if (category.isEmpty()) {
-            throw new NotFoundException(Category.class, "Категория " + categoryId + " не найдена!");
-        } else {
-            return category.get();
-        }
+        return checkEntity(categoryRepository.findById(categoryId), Category.class, "Категория " + categoryId);
     }
 
     @Override
     public Event checkEvent(Long eventId) {
-        Optional<Event> event = eventRepository.findById(eventId);
-        if (event.isEmpty()) {
-            throw new NotFoundException(Event.class, "Событие  " + eventId + " не найдено!");
-        } else {
-            return event.get();
-        }
+        return checkEntity(eventRepository.findById(eventId), Event.class, "Событие " + eventId);
     }
 
     @Override
     public Request checkRequest(Long requestId) {
-        Optional<Request> request = requestRepository.findById(requestId);
-        if (request.isEmpty()) {
-            throw new NotFoundException(Request.class, "Запрос " + requestId + " не обнаружен! ");
-        } else {
-            return request.get();
-        }
+        return checkEntity(requestRepository.findById(requestId), Request.class, "Запрос " + requestId);
     }
 
     @Override
     public Compilation checkCompilation(Long compId) {
-        Optional<Compilation> compilation = compilationRepository.findById(compId);
-        if (compilation.isEmpty()) {
-            throw new NotFoundException(Compilation.class, "Подборка событий " + compId + " не найдена!");
-        } else {
-            return compilation.get();
-        }
+        return checkEntity(compilationRepository.findById(compId), Compilation.class, "Подборка событий " + compId);
     }
 
     @Override

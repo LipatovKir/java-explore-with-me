@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.event.service.EventService;
-
 import ru.practicum.event.dto.*;
+import ru.practicum.event.service.EventService;
 import ru.practicum.request.dto.RequestDto;
 
 import javax.validation.Valid;
@@ -52,7 +51,8 @@ public class EventPrivateController {
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EventFullDto updateEventByUserId(@RequestBody @Valid UpdateEventDto eventUpdateDto,
+    public EventFullDto updateEventByUserId(@RequestBody
+                                            @Valid UpdateEventDto eventUpdateDto,
                                             @PathVariable Long userId,
                                             @PathVariable Long eventId) {
         log.info("Пользователь id {} обновил событие {} ", eventId, eventUpdateDto.getAnnotation());

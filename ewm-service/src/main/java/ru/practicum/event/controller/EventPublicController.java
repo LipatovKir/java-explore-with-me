@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.event.service.EventService;
 import ru.practicum.event.dto.EventFullDto;
 import ru.practicum.event.dto.EventShortDto;
+import ru.practicum.event.service.EventService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Positive;
@@ -23,7 +23,7 @@ public class EventPublicController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<EventShortDto> getEventsByPublic(@RequestParam(required = false, name = "text") String text,
+    public List<EventShortDto> getEventsByPublic(@RequestParam(required = false) String text,
                                                  @RequestParam(required = false, name = "categories") List<Long> categories,
                                                  @RequestParam(required = false, name = "paid") Boolean paid,
                                                  @RequestParam(required = false, name = "rangeStart") String rangeStart,

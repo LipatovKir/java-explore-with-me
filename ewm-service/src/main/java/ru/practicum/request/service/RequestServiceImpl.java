@@ -4,20 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.event.repository.EventRepository;
-import ru.practicum.exception.ConflictException;
-import ru.practicum.request.repository.RequestRepository;
-import ru.practicum.request.dto.RequestDto;
-import ru.practicum.request.model.Request;
-import ru.practicum.user.model.User;
-import ru.practicum.event.model.Event;
+import ru.practicum.checkservice.CheckService;
 import ru.practicum.enums.State;
 import ru.practicum.enums.Status;
+import ru.practicum.event.model.Event;
+import ru.practicum.event.repository.EventRepository;
+import ru.practicum.exception.ConflictException;
+import ru.practicum.request.dto.RequestDto;
+import ru.practicum.request.model.Request;
+import ru.practicum.request.repository.RequestRepository;
+import ru.practicum.user.model.User;
 
 import java.time.LocalDateTime;
-
-import ru.practicum.checkservice.CheckService;
-
 import java.util.List;
 
 @Slf4j
@@ -46,23 +44,22 @@ public class RequestServiceImpl implements RequestService {
         }
         if (event.getState() != State.PUBLISHED) {
             throw new ConflictException(String.format("Событиие %s еще не опубликовано ", eventId));
-        } else {
-            Request request = Request.builder()
-                    .requester(user)
-                    .event(event)
-                    .created(LocalDateTime.now())
-                    .status(Status.PENDING)
-                    .build();
-            if (Boolean.TRUE.equals(!event.getRequestModeration()) || event.getParticipantLimit() == 0) {
-                request.setStatus(Status.CONFIRMED);
-                request = requestRepository.save(request);
-                event.setConfirmedRequests(requestRepository.countAllByEventIdAndStatus(eventId, Status.CONFIRMED));
-                eventRepository.save(event);
-                return RequestMapper.makeRequestInDto(request);
-            }
+        }
+        Request request = Request.builder()
+                .requester(user)
+                .event(event)
+                .created(LocalDateTime.now())
+                .status(Status.PENDING)
+                .build();
+        if (Boolean.TRUE.equals(!event.getRequestModeration()) || event.getParticipantLimit() == 0) {
+            request.setStatus(Status.CONFIRMED);
             request = requestRepository.save(request);
+            event.setConfirmedRequests(requestRepository.countAllByEventIdAndStatus(eventId, Status.CONFIRMED));
+            eventRepository.save(event);
             return RequestMapper.makeRequestInDto(request);
         }
+        request = requestRepository.save(request);
+        return RequestMapper.makeRequestInDto(request);
     }
 
     @Override
