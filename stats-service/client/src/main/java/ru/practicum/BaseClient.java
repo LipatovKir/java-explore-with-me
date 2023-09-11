@@ -26,15 +26,15 @@ public class BaseClient {
         return responseBuilder.build();
     }
 
-    protected <T> ResponseEntity<Object> post(T body) {
-        return makeRequest(HttpMethod.POST, "/hit", null, body);
+    protected <T> void post(T body) {
+        makeAndSendRequest(HttpMethod.POST, "/hit", null, body);
     }
 
-    protected ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeRequest(HttpMethod.GET, path, parameters, null);
+    protected ResponseEntity<Object> get(@Nullable Map<String, Object> parameters) {
+        return makeAndSendRequest(HttpMethod.GET, "/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters, null);
     }
 
-    private <T> ResponseEntity<Object> makeRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
         ResponseEntity<Object> statsServiceResponse;
         try {

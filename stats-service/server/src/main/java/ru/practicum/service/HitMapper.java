@@ -1,14 +1,13 @@
 package ru.practicum.service;
 
 import lombok.experimental.UtilityClass;
-import ru.practicum.HitDto;
+import ru.practicum.dto.HitDto;
 import ru.practicum.model.Hit;
-
 
 @UtilityClass
 public class HitMapper {
 
-    public Hit makeHitInDto(HitDto hitDto) {
+    public Hit returnHit(HitDto hitDto) {
         return Hit.builder()
                 .id(hitDto.getId())
                 .app(hitDto.getApp())

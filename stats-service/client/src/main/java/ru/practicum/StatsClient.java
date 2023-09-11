@@ -7,14 +7,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.dto.HitDto;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import static ru.practicum.Constant.FORMATTER;
 
 @Service
 public class StatsClient extends BaseClient {
+
+    public void addHit(HitDto hitDto) {
+        post(hitDto);
+    }
 
     @Autowired
     public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
@@ -26,32 +31,13 @@ public class StatsClient extends BaseClient {
         );
     }
 
-    public ResponseEntity<Object> addHit(HitDto hitDto) {
-        return post(hitDto);
-    }
-
-    public ResponseEntity<Object> getStat(LocalDateTime start, LocalDateTime end, String[] uris, boolean unique) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        String joinedUris = String.join(",", uris);
-
+    public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime  end, String uris, boolean unique) {
         Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter),
-                "uris", joinedUris,
+                "start", start.format(FORMATTER),
+                "end", end.format(FORMATTER),
+                "uris", uris,
                 "unique", unique
         );
-        return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
-    }
-
-    public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime end, boolean unique) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        Map<String, Object> parameters = Map.of(
-                "start", start.format(formatter),
-                "end", end.format(formatter),
-                "unique", unique
-        );
-        return get("/stats?start={start}&end={end}&unique={unique}", parameters);
+        return get(parameters);
     }
 }
