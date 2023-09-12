@@ -51,6 +51,8 @@ ADMIN:
 Удаление комментариев;
 Поучение комментариев по времени.
 
+Ссылка на PR:https://github.com/LipatovKir/java-explore-with-me/pull/7#issue-1893183627
+
 В работе использовано:
 Java
 Spring Boot
