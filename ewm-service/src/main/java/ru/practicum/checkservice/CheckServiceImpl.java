@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.categories.model.Category;
 import ru.practicum.categories.repository.CategoryRepository;
+import ru.practicum.comments.model.Comment;
+import ru.practicum.comments.repository.CommentRepository;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.compilation.repository.CompilationRepository;
 import ru.practicum.event.model.Event;
@@ -29,9 +31,10 @@ public class CheckServiceImpl implements CheckService {
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
     private final CompilationRepository compilationRepository;
+    private final CommentRepository commentRepository;
 
     private <T> T checkEntity(Optional<T> entity, Class<T> entityClass, String entityId) {
-        return entity.orElseThrow(() -> new NotFoundException(entityClass, entityId + " не найден!"));
+        return entity.orElseThrow(() -> new NotFoundException(entityClass, entityId + " NOT FOUND! "));
     }
 
     @Override
@@ -66,5 +69,10 @@ public class CheckServiceImpl implements CheckService {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public Comment checkComment(Long commentId) {
+        return checkEntity(commentRepository.findById(commentId), Comment.class, "Комментарий " + commentId);
     }
 }
