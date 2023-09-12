@@ -59,7 +59,7 @@ public class CommentPrivateController {
                                                      @RequestParam(name = "from", defaultValue = "0") Integer from,
                                                      @Positive
                                                      @RequestParam(name = "size", defaultValue = "10") Integer size) {
-        log.info("Получение всех клмментариев поьзователя id {}, от {} и до {}.", userId, rangeStart, rangeEnd);
+        log.info("Получение всех комментариев пользователя id {}, от {} и до {}.", userId, rangeStart, rangeEnd);
         return commentService.getCommentsByUserId(rangeStart, rangeEnd, userId, from, size);
     }
 }
