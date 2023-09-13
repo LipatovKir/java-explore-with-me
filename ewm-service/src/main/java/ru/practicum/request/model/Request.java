@@ -64,7 +64,11 @@ public class Request {
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass
-                ().hashCode() : getClass().hashCode();
+        if (this instanceof HibernateProxy) {
+            HibernateProxy hibernateProxy = (HibernateProxy) this;
+            return hibernateProxy.getHibernateLazyInitializer().getPersistentClass().hashCode();
+        } else {
+            return getClass().hashCode();
+        }
     }
 }
