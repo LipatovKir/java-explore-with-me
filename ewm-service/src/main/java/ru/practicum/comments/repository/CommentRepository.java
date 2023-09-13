@@ -1,6 +1,8 @@
 package ru.practicum.comments.repository;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,10 +32,10 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             "OR (CAST(:rangeEnd AS date) IS NULL AND c.created > CAST(:rangeStart AS date)) " +
             "GROUP BY c.id " +
             "ORDER BY c.id ASC")
-    List<Comment> getCommentsByUserId(@Param("user") Long user,
+    Page<Comment> getCommentsByUserId(@Param("user") Long user,
                                       @Param("rangeStart") LocalDateTime rangeStart,
                                       @Param("rangeEnd") LocalDateTime rangeEnd,
-                                      PageRequest pageRequest);
+                                      Pageable pageable);
 
     @Query(value = "SELECT c FROM Comment AS c " +
             "WHERE (CAST(:rangeStart AS date) IS NULL AND CAST(:rangeStart AS date) IS NULL)" +

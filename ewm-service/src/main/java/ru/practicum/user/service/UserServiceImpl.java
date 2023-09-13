@@ -1,18 +1,16 @@
 package ru.practicum.user.service;
 
-import lombok.extern.slf4j.Slf4j;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.user.dto.UserDto;
 import ru.practicum.checkservice.CheckService;
+import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.model.User;
 import ru.practicum.user.repository.UserRepository;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @Transactional(readOnly = true)
 @AllArgsConstructor

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.micrometer.core.instrument.util.StringUtils;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,6 @@ import java.util.Optional;
 import static ru.practicum.Constant.START_OF_REPORT;
 import static ru.practicum.enums.State.PUBLISHED;
 
-@Slf4j
 @Service
 @Transactional(readOnly = true)
 @AllArgsConstructor

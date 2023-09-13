@@ -34,32 +34,32 @@ public class CheckServiceImpl implements CheckService {
     private final CommentRepository commentRepository;
 
     private <T> T checkEntity(Optional<T> entity, Class<T> entityClass, String entityId) {
-        return entity.orElseThrow(() -> new NotFoundException(entityClass, entityId + " NOT FOUND! "));
+        return entity.orElseThrow(() -> new NotFoundException(entityClass, entityId + " не обнаружено! "));
     }
 
     @Override
     public User checkUser(Long userId) {
-        return checkEntity(userRepository.findById(userId), User.class, "Пользователь " + userId);
+        return checkEntity(userRepository.findById(userId), User.class, "Пользователя " + userId);
     }
 
     @Override
     public Category checkCategory(Long categoryId) {
-        return checkEntity(categoryRepository.findById(categoryId), Category.class, "Категория " + categoryId);
+        return checkEntity(categoryRepository.findById(categoryId), Category.class, "Категории " + categoryId);
     }
 
     @Override
     public Event checkEvent(Long eventId) {
-        return checkEntity(eventRepository.findById(eventId), Event.class, "Событие " + eventId);
+        return checkEntity(eventRepository.findById(eventId), Event.class, "События " + eventId);
     }
 
     @Override
     public Request checkRequest(Long requestId) {
-        return checkEntity(requestRepository.findById(requestId), Request.class, "Запрос " + requestId);
+        return checkEntity(requestRepository.findById(requestId), Request.class, "Запроса " + requestId);
     }
 
     @Override
     public Compilation checkCompilation(Long compId) {
-        return checkEntity(compilationRepository.findById(compId), Compilation.class, "Подборка событий " + compId);
+        return checkEntity(compilationRepository.findById(compId), Compilation.class, "Подборки событий " + compId);
     }
 
     @Override
@@ -73,6 +73,6 @@ public class CheckServiceImpl implements CheckService {
 
     @Override
     public Comment checkComment(Long commentId) {
-        return checkEntity(commentRepository.findById(commentId), Comment.class, "Комментарий " + commentId);
+        return checkEntity(commentRepository.findById(commentId), Comment.class, "Комментария " + commentId);
     }
 }

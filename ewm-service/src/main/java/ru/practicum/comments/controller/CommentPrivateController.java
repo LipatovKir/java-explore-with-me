@@ -2,19 +2,20 @@ package ru.practicum.comments.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.comments.dto.CommentFullDto;
 import ru.practicum.comments.dto.CommentShortDto;
 import ru.practicum.comments.dto.NewCommentDto;
 import ru.practicum.comments.service.CommentService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/users/{userId}/comments")
@@ -24,8 +25,7 @@ public class CommentPrivateController {
 
     @PostMapping("/{eventId}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public CommentFullDto addComment(@Valid
-                                     @RequestBody NewCommentDto commentNewDto,
+    public CommentFullDto addComment(@RequestBody NewCommentDto commentNewDto,
                                      @PathVariable Long userId,
                                      @PathVariable Long eventId) {
         log.info("Пользователь id {} добавил новый комментарий к событию {} ", userId, eventId);
@@ -34,8 +34,7 @@ public class CommentPrivateController {
 
     @PatchMapping("/{commentId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CommentFullDto updateComment(@Valid
-                                        @RequestBody NewCommentDto commentNewDto,
+    public CommentFullDto updateComment(@RequestBody NewCommentDto commentNewDto,
                                         @PathVariable Long userId,
                                         @PathVariable Long commentId) {
         log.info("Пользователь id {} обновил комментарий {} ", userId, commentId);
@@ -52,7 +51,7 @@ public class CommentPrivateController {
 
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public List<CommentShortDto> getCommentsByUserId(@PathVariable Long userId,
+    public Page<CommentShortDto> getCommentsByUserId(@PathVariable Long userId,
                                                      @RequestParam(required = false, name = "rangeStart") String rangeStart,
                                                      @RequestParam(required = false, name = "rangeEnd") String rangeEnd,
                                                      @PositiveOrZero

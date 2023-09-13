@@ -45,18 +45,27 @@ public class Comment {
     LocalDateTime created;
 
     @Override
-    public final boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null) return false;
-        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
-        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
-        if (thisEffectiveClass != oEffectiveClass) return false;
-        Comment comment = (Comment) o;
-        return getId() != null && Objects.equals(getId(), comment.getId());
+    public final boolean equals(Object otherObject) {
+        if (this == otherObject) {
+            return true;
+        }
+        if (otherObject == null) {
+            return false;
+        }
+        Class<?> otherEffectiveClass = otherObject instanceof HibernateProxy
+                ? ((HibernateProxy) otherObject).getHibernateLazyInitializer().getPersistentClass()
+                : otherObject.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy
+                ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass()
+                : this.getClass();
+        return thisEffectiveClass == otherEffectiveClass
+                && getId() != null
+                && Objects.equals(getId(), ((Comment) otherObject).getId());
     }
 
     @Override
     public final int hashCode() {
-        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass
+                ().hashCode() : getClass().hashCode();
     }
 }

@@ -3,17 +3,18 @@ package ru.practicum.event.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.event.service.EventService;
 import ru.practicum.event.dto.EventFullDto;
 import ru.practicum.event.dto.UpdateEventDto;
+import ru.practicum.event.service.EventService;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/admin/events")
@@ -38,8 +39,7 @@ public class EventAdminController {
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EventFullDto updateEventByAdmin(@Valid
-                                           @RequestBody UpdateEventDto updateEventDto,
+    public EventFullDto updateEventByAdmin(@RequestBody UpdateEventDto updateEventDto,
                                            @PathVariable Long eventId) {
         log.info("Администратор обновил событие {} ", eventId);
         return eventService.updateEventByAdmin(updateEventDto, eventId);

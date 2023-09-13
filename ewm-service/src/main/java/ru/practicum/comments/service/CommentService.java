@@ -1,5 +1,6 @@
 package ru.practicum.comments.service;
 
+import org.springframework.data.domain.Page;
 import ru.practicum.comments.dto.CommentFullDto;
 import ru.practicum.comments.dto.CommentShortDto;
 import ru.practicum.comments.dto.NewCommentDto;
@@ -14,7 +15,7 @@ public interface CommentService {
 
     void deletePrivateComment(Long userId, Long commentId);
 
-    List<CommentShortDto> getCommentsByUserId(String rangeStart, String rangeEnd, Long userId, Integer from, Integer size);
+    Page<CommentShortDto> getCommentsByUserId(String rangeStart, String rangeEnd, Long userId, Integer from, Integer size);
 
     List<CommentFullDto> getComments(String rangeStart, String rangeEnd, Integer from, Integer size);
 
