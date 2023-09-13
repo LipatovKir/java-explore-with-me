@@ -10,6 +10,8 @@ import ru.practicum.compilation.dto.NewCompilationDto;
 import ru.practicum.compilation.dto.UpdateCompilationRequest;
 import ru.practicum.compilation.service.CompilationService;
 
+import javax.validation.Valid;
+
 @Slf4j
 @Validated
 @RestController
@@ -21,7 +23,8 @@ public class CompilationAdminController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public CompilationDto addCompilation(@RequestBody NewCompilationDto newCompilationDto) {
+    public CompilationDto addCompilation(@Valid
+                                         @RequestBody NewCompilationDto newCompilationDto) {
         log.info("Добавлена подборка событий {} ", newCompilationDto.getTitle());
         return compilationService.addCompilation(newCompilationDto);
     }
@@ -35,7 +38,8 @@ public class CompilationAdminController {
 
     @PatchMapping("/{compId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CompilationDto updateCompilation(@RequestBody UpdateCompilationRequest updateCompilationRequest,
+    public CompilationDto updateCompilation(@Valid
+                                            @RequestBody UpdateCompilationRequest updateCompilationRequest,
                                             @PathVariable Long compId) {
         log.info("Обновлена подборка событий  {} ", compId);
         return compilationService.updateCompilation(compId, updateCompilationRequest);

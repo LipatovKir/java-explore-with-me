@@ -9,6 +9,7 @@ import ru.practicum.event.dto.EventFullDto;
 import ru.practicum.event.dto.UpdateEventDto;
 import ru.practicum.event.service.EventService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -39,7 +40,8 @@ public class EventAdminController {
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EventFullDto updateEventByAdmin(@RequestBody UpdateEventDto updateEventDto,
+    public EventFullDto updateEventByAdmin(@Valid
+                                           @RequestBody UpdateEventDto updateEventDto,
                                            @PathVariable Long eventId) {
         log.info("Администратор обновил событие {} ", eventId);
         return eventService.updateEventByAdmin(updateEventDto, eventId);

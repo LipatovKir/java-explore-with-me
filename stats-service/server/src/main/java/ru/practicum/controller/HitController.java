@@ -9,6 +9,7 @@ import ru.practicum.dto.HitDto;
 import ru.practicum.dto.StatsDto;
 import ru.practicum.service.HitService;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +25,8 @@ public class HitController {
 
     @PostMapping("/hit")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void addHit(@RequestBody HitDto hitDto) {
+    public void addHit(@Valid
+                       @RequestBody HitDto hitDto) {
         log.info("Создан HIT {}:", hitDto.getApp());
         hitService.addHit(hitDto);
     }

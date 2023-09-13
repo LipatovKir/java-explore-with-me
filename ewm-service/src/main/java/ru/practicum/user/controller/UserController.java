@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.user.dto.UserDto;
 import ru.practicum.user.service.UserService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -23,7 +24,8 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public UserDto addUser(@RequestBody UserDto userDto) {
+    public UserDto addUser(@Valid
+                           @RequestBody UserDto userDto) {
         log.info("Добавлен пользователь {} ", userDto.getName());
         return userService.addUser(userDto);
     }
