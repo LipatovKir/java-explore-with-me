@@ -4,18 +4,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.comments.dto.CommentFullDto;
 import ru.practicum.comments.dto.CommentShortDto;
 import ru.practicum.comments.dto.NewCommentDto;
 import ru.practicum.comments.service.CommentService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 
 @Slf4j
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/users/{userId}/comments")
@@ -25,7 +24,8 @@ public class CommentPrivateController {
 
     @PostMapping("/{eventId}")
     @ResponseStatus(value = HttpStatus.CREATED)
-    public CommentFullDto addComment(@RequestBody NewCommentDto commentNewDto,
+    public CommentFullDto addComment(@Valid
+                                     @RequestBody NewCommentDto commentNewDto,
                                      @PathVariable Long userId,
                                      @PathVariable Long eventId) {
         log.info("Пользователь id {} добавил новый комментарий к событию {} ", userId, eventId);
@@ -34,7 +34,8 @@ public class CommentPrivateController {
 
     @PatchMapping("/{commentId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public CommentFullDto updateComment(@RequestBody NewCommentDto commentNewDto,
+    public CommentFullDto updateComment(@Valid
+                                        @RequestBody NewCommentDto commentNewDto,
                                         @PathVariable Long userId,
                                         @PathVariable Long commentId) {
         log.info("Пользователь id {} обновил комментарий {} ", userId, commentId);
