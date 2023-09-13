@@ -3,18 +3,17 @@ package ru.practicum.event.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.event.dto.*;
 import ru.practicum.event.service.EventService;
 import ru.practicum.request.dto.RequestDto;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 
 @Slf4j
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/users/{userId}/events")
@@ -24,7 +23,8 @@ public class EventPrivateController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public EventFullDto addEvent(@RequestBody NewEventDto newEventDto,
+    public EventFullDto addEvent(@Valid
+                                 @RequestBody NewEventDto newEventDto,
                                  @PathVariable Long userId) {
         log.info("Пользователь id {}, добавил событие {} ", userId, newEventDto.getAnnotation());
         return eventService.addEvent(userId, newEventDto);
@@ -51,7 +51,8 @@ public class EventPrivateController {
 
     @PatchMapping("/{eventId}")
     @ResponseStatus(value = HttpStatus.OK)
-    public EventFullDto updateEventByUserId(@RequestBody UpdateEventDto eventUpdateDto,
+    public EventFullDto updateEventByUserId(@RequestBody
+                                            @Valid UpdateEventDto eventUpdateDto,
                                             @PathVariable Long userId,
                                             @PathVariable Long eventId) {
         log.info("Пользователь id {} обновил событие {} ", eventId, eventUpdateDto.getAnnotation());
