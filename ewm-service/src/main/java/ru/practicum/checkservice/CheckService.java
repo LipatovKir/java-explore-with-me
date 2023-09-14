@@ -1,6 +1,7 @@
 package ru.practicum.checkservice;
 
 import ru.practicum.categories.model.Category;
+import ru.practicum.comments.model.Comment;
 import ru.practicum.compilation.model.Compilation;
 import ru.practicum.event.model.Event;
 import ru.practicum.request.model.Request;
@@ -21,4 +22,6 @@ public interface CheckService {
     Compilation checkCompilation(Long compId);
 
     LocalDateTime parseDate(String date);
+
+    Comment checkComment(Long commentId);
 }
